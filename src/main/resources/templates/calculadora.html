@@ -2,100 +2,59 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calculadora Básica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Científica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
-    <div class="container text-center">
-        <h1>Calculadora Cientifica</h1>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary" onclick="">7</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">8</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">9</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary" onclick="suma()">+</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">4</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">5</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">6</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary" onclick="resta()">-</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">1</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">2</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">3</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary" onclick="multiplicacion()">X</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">0</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">.</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary">=</button>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-outline-secondary" onclick="div()">/</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="container py-4">
+        <h1 class="text-center mb-4">Calculadora Científica</h1>
+        <div class="calc-wrapper mx-auto">
+            <input type="text" id="display" class="calc-display" readonly value="0">
+            <div class="calc-grid">
+                <button class="btn-sci" onclick="press('sin(')">sin</button>
+                <button class="btn-sci" onclick="press('cos(')">cos</button>
+                <button class="btn-sci" onclick="press('tan(')">tan</button>
+                <button class="btn-sci" onclick="press('sqrt(')">√</button>
 
-    <form>
-        <label>Numero 1:</label>
-        <input type="number" id="n1" name="n1" placeholder="Ingrese un numero"/>
-        <br>
-        <label>Numero 2:</label>
-        <input type="number" id="n2" name="n2" placeholder="Ingrese un numero" />
-        <br>
-        <p id="resultado">Resultado: 0</p>
-        <input type="button" value="Suma" ONCLICK="suma()">
-        <input type="button" value="Resta" onclick="resta()">
-        <input type="button" value="Multiplicacion" onclick="multiplicacion()">
-        <input type="button" value="Division" onclick="div()">
-    </form>
-<script src="/js/calculadora.js"></script>
+                <button class="btn-sci" onclick="press('log(')">log</button>
+                <button class="btn-sci" onclick="press('ln(')">ln</button>
+                <button class="btn-sci" onclick="press('π')">π</button>
+                <button class="btn-sci" onclick="press('e')">e</button>
+
+                <button class="btn-sci" onclick="press('(')">( </button>
+                <button class="btn-sci" onclick="press(')')"> )</button>
+                <button class="btn-sci" onclick="press('factorial(')">n!</button>
+                <button class="btn-sci" onclick="press('%')">%</button>
+
+                <button class="btn-sci" onclick="press('**2')">x²</button>
+                <button class="btn-sci" onclick="press('**')">xⁿ</button>
+                <button class="btn-clear" onclick="ac()">AC</button>
+                <button class="btn-clear" onclick="del()">⌫</button>
+
+                <button class="btn-num" onclick="press('7')">7</button>
+                <button class="btn-num" onclick="press('8')">8</button>
+                <button class="btn-num" onclick="press('9')">9</button>
+                <button class="btn-op" onclick="press('÷')">÷</button>
+
+                <button class="btn-num" onclick="press('4')">4</button>
+                <button class="btn-num" onclick="press('5')">5</button>
+                <button class="btn-num" onclick="press('6')">6</button>
+                <button class="btn-op" onclick="press('×')">×</button>
+
+                <button class="btn-num" onclick="press('1')">1</button>
+                <button class="btn-num" onclick="press('2')">2</button>
+                <button class="btn-num" onclick="press('3')">3</button>
+                <button class="btn-op" onclick="press('-')">−</button>
+
+                <button class="btn-num" onclick="press('0')">0</button>
+                <button class="btn-num" onclick="press('.')">.</button>
+                <button class="btn-op" onclick="press('+')">+</button>
+                <button class="btn-equals" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/calculadora.js}"></script>
 </body>
 </html>

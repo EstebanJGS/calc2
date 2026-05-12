@@ -1,34 +1,62 @@
-function suma(){
-    //document = pagina = dpcumentos cientificos en los 90's
-    let n1=document.getElementById("n1").value;
-    let n2=document.getElementById("n2").value;
-    let resultado= parseInt(n1)+parseInt(n2);
-    //Accedemos al parrafo que tiene un id de resultado y modificamos su contenido
-    document.getElementById("resultado").innerHTML="Resultado: "+resultado;
+const e = Math.E;
+
+function sin(x) { return Math.sin(x * Math.PI / 180); }
+function cos(x) { return Math.cos(x * Math.PI / 180); }
+function tan(x) { return Math.tan(x * Math.PI / 180); }
+function sqrt(x) { return Math.sqrt(x); }
+function log(x) { return Math.log10(x); }
+function ln(x) { return Math.log(x); }
+function factorial(n) {
+    n = Math.floor(Math.abs(n));
+    if (n <= 1) return 1;
+    let r = 1;
+    for (let i = 2; i <= n; i++) r *= i;
+    return r;
 }
 
-function resta(){
-    let n1=document.getElementById("n1").value;
-    let n2=document.getElementById("n2").value;
-    let resultado= n1-n2;
-    document.getElementById("resultado").innerHTML="Resultado: "+resultado;
-}
+let expr = '';
+let justCalc = false;
 
-function multiplicacion(){
-    let n1=document.getElementById("n1").value;
-    let n2=document.getElementById("n2").value;
-    let resultado= n1*n2;
-    document.getElementById("resultado").innerHTML="Resultado: "+resultado;
-}
-
-function div(){
-    let n1=document.getElementById("n1").value;
-    let n2=document.getElementById("n2").value;
-    if(n2 != 0) {
-        let resultado = n1/n2;
-        document.getElementById("resultado").innerHTML="Resultado: "+resultado;
+function press(val) {
+    if (justCalc) {
+        if (!isNaN(val) || val === '.') expr = '';
+        justCalc = false;
     }
-    else
-        document.getElementById("resultado").innerHTML="Imposible dividir entre 0";
+    expr += val;
+    updateDisplay();
+}
 
+function updateDisplay() {
+    document.getElementById('display').value = expr || '0';
+}
+
+function ac() {
+    expr = '';
+    justCalc = false;
+    updateDisplay();
+}
+
+function del() {
+    expr = expr.slice(0, -1);
+    updateDisplay();
+}
+
+function calculate() {
+    if (!expr) return;
+    try {
+        let toEval = expr
+            .replace(/π/g, '(Math.PI)')
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/');
+        let result = eval(toEval);
+        if (typeof result !== 'number' || !isFinite(result)) throw new Error();
+        result = parseFloat(result.toPrecision(10));
+        expr = String(result);
+        justCalc = true;
+        updateDisplay();
+    } catch (_) {
+        document.getElementById('display').value = 'Error';
+        expr = '';
+        justCalc = false;
+    }
 }
